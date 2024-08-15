@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use PDO;
 
 class Ads
 {
@@ -15,10 +16,10 @@ class Ads
     public function create(
         string $title,
         string $description,
-        string $user_id,
-        string $branch_id,
-        string $status_id,
-        string $price,
+        int $user_id,
+        int $branch_id,
+         int  $status_id,
+        int $price,
 
     ): array|false
     {
@@ -36,10 +37,10 @@ class Ads
         $stmt->bindParam(':price', $price);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getAds(int $id)
+    public function getAd(int $id)
     {
         $this->pdo = DB::connect();
         $query = "SELECT * FROM ads WHERE id = :id";
@@ -48,29 +49,53 @@ class Ads
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-        public  function  updateAds(  string $title, string $description, string $user_id, string $branch_id,
-        string $status_id, string $price, string $created_at, string $updated_at)
-        {
-            $query="UPDATE ads SET title = :title, description = :description, user_id = :user_id, 
-            branch_id = :branch_id, status_id = :status_id, price = :price, created_at = :created_at, 
-            updated_at = :updated_at WHERE id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindParam(':title', $title);
-            $stmt->bindParam(':description', $description);
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':branch_id', $branch_id);
-            $stmt->bindParam(':status_id', $status_id);
-            $stmt->bindParam(':price', $price);
-            $stmt->bindParam(':created_at', $created_at);
-            $stmt->bindParam(':updated_at', $updated_at);
-            $stmt->execute();
-        }
 
-        public  function  deleteAds(int $id)
-        {
-            $query="DELETE FROM ads WHERE id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-        }
+    public  function  updateAds(  string $title, string $description, int  $user_id, int $branch_id,
+        int $status_id, float $price)
+    {
+        $query="UPDATE ads SET title = :title, description = :description, user_id = :user_id, 
+        branch_id = :branch_id, status_id = :status_id, price = :price, created_at = :created_at, 
+        updated_at = :updated_at WHERE id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':branch_id', $branch_id);
+        $stmt->bindParam(':status_id', $status_id);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':created_at', $created_at);
+        $stmt->bindParam(':updated_at', $updated_at);
+        $stmt->execute();
+    }
+
+    public  function  deleteAds(int $id)
+    {
+        $query="DELETE FROM ads WHERE id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+    public function getAds()
+{    
+    $query = "SELECT 
+            
+                ads.title AS title,
+                ads.description AS  description,
+                ads.price AS   price,
+                ads.rooms AS  rooms,
+                ads.address AS  address,
+                branch.name AS branch,
+                users.username AS user,
+                users.position AS  position,
+                users.gender AS gender,
+                users.phone AS  phone,
+                status.name AS  status_name
+              FROM ads
+              JOIN branch ON branch.id = ads.branch_id
+              JOIN users ON users.id = ads.user_id
+              JOIN status ON status.id = ads.status_id";
+    
+    return $this->pdo->query($query)->fetchAll(PDO::FETCH_OBJ);
+}
+
 }
