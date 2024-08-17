@@ -19,7 +19,7 @@
     foreach ($ads as $ad): ?>
 
         <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-            <a href="#">
+            <a href="/ads/<?php echo $ad->id; ?>">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbQXittbKApBQcRF1O0h7AapwgCwNHpi9Q4w&s"
                     alt="Product" class="h-80 w-72 object-cover rounded-t-xl"/>
                 <div class="px-4 py-3 w-72">
@@ -35,7 +35,7 @@
                     </div>
                  
                     <p class="text-lg font-bold text-black truncate block capitalize"><?php echo $ad->title; ?></p>
-                    <p class="text-sm text-gray-600"><?php echo $ad->ad_description; ?></p>
+                    <p class="text-sm text-gray-600"><?php echo $ad->description; ?></p>
                     <div class="flex items-center">
                         <p class="text-lg font-semibold text-black cursor-auto my-3">$<?php echo $ad->price; ?></p>
                         <del>
