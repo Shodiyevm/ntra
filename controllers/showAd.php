@@ -1,6 +1,10 @@
 <?php
 
-declare(strict_types=1);
 
 
-dd(new \App\Ads())->getAd($id);
+$ad = (new \App\Ads())->getAdr($id);
+
+ loadView('single-ad', ['ad' => $ad]);
+
+ 
+?>

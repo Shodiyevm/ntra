@@ -2,6 +2,7 @@
 
 
 use App\Ads;
+use App\Router;
 
 function dd ($args){
     echo '<pre>';
@@ -20,24 +21,40 @@ function basePath(string $path): string {
 }
 
 function loadView(string $path, array|null $args = null): void {
+
+      $filePath= basePath('/public/pages/' . $path . '.php');
+
+     if(!file_exists($filePath )) {
+         echo 'Resource not found' . $filePath;
+         return;
+     }
+
     if (is_array($args)) {
         extract($args);
     }
-    require basePath('/public/pages/' . $path . '.php');
+    require $filePath;
 }
 
-/*function loadPartials(string $path, array|null $args = null): void {
+function loadPartial(string $path, array|null $args = null): void {
     if (is_array($args)) {
         extract($args);
     }
-    require basePath('/public/partials/' . $path , '.php');
+    require basePath('/public/partials/' . $path . '.php');
     
-}*/
-
+}
 
 function loadController(string $path, array|null $args = null): void {
+    $filePath = __DIR__ . '/controllers/' . $path . '.php';
+
+    if (!file_exists($filePath)) {
+        echo "Controller not found at: " . $filePath;
+        return;
+    }
+
     if (is_array($args)) {
         extract($args);
     }
-    require basePath('./controllers/' . $path . '.php');
+
+    require $filePath;
 }
+

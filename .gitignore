@@ -1,2 +1,5 @@
 .env
 vendor
+.idea
+node_modules
+public/styles/main.css
