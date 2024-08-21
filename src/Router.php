@@ -3,7 +3,7 @@ namespace App;
 
 class Router
 {
-    protected ?object $update;
+    protected object|null $update;
     protected string $uri;
 
     public function __construct()

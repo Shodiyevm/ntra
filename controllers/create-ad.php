@@ -1,47 +1,33 @@
 <?php
 
+declare(strict_types=1);
 
 $title       = $_POST['title'];
-$description = $_POST['description'];
+$description = $_POST['desc'];
 $price       = (float) $_POST['price'];
-$branch      = (int) $_POST['branch'];
+$branch      = (int) $_POST['branch_id'];
 $address     = $_POST['address'];
 $rooms       = (int) $_POST['rooms'];
 
 if ($_POST['title']
-    && $_POST['description']
+    && $_POST['desc']
     && $_POST['price']
     && $_POST['address']
     && $_POST['rooms']
 ) {
-
-    $newAdsId = (new \App\Ads())->createAds(
+    // 1. E'lonni saqlash
+    $newAdsId = (new \App\Ads())->create(
         $title,
         $description,
-        5,
-        1,
-        1,
+        10, // Bu yerda branch yoki user_id'ni dinamik ravishda berish kerak bo'lishi mumkin.
+        2,
+        $branch,
         $address,
         $price,
         $rooms
     );
-
-    if ($newAdsId) {
-        $imageHandler = new \App\Image();
-        $fileName     = $imageHandler->handleUpload();
-
-        if (!$fileName) {
-            exit('Rasm yuklanmadi!');
-        }
-
-        $imageHandler->addImage((int)$newAdsId, $fileName);
-
         header('Location: /');
 
-        exit();
-    }
-
-    return;
 }
 
 echo "Iltimos, barcha maydonlarni to'ldiring!";
