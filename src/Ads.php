@@ -37,7 +37,7 @@ class Ads
         $stmt->bindParam(':price', $price);
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $this->pdo->lastInsertId();
     }
     public function getAd(int $id)
     {

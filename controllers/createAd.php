@@ -1,5 +1,8 @@
 <?php
 
-declare(strict_types=1);
-loadPartial('create-ad', ['ad' => $ad]);
 
+
+declare(strict_types=1);
+loadPattial('header');
+loadPattial('navbar');
+loadPartial('create-ad', ['ad' => $ad]);
