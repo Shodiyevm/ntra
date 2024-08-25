@@ -3,7 +3,7 @@
 use App\User;
 
 if(isset($_POST['email']) && isset($_POST['password'])){ 
-dd($_POST);
+
     $email = $_POST['email'];
     $password = $_POST['password'];
     $user = new User();

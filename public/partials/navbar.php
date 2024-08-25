@@ -27,10 +27,10 @@
                 <!--Login button Start-->
                 <ul class="buy-button list-none mb-0">
                     <li class="inline mb-0">
-                        <a href="auth-login.html" class="btn btn-icon bg-green-600 hover:bg-green-700 border-green-600 dark:border-green-600 text-white rounded-full"><i data-feather="user" class="size-4 stroke-[3]"></i></a>
+                        <a href="/login" class="btn btn-icon bg-green-600 hover:bg-green-700 border-green-600 dark:border-green-600 text-white rounded-full"><i data-feather="user" class="size-4 stroke-[3]"></i></a>
                     </li>
                     <li class="sm:inline ps-1 mb-0 hidden">
-                        <a href="auth-signup.html" class="btn bg-green-600 hover:bg-green-700 border-green-600 dark:border-green-600 text-white rounded-full">Signup</a>
+                        <a href="/signup" class="btn bg-green-600 hover:bg-green-700 border-green-600 dark:border-green-600 text-white rounded-full">Signup</a>
                     </li>
                 </ul>
                 <!--Login button End-->
@@ -192,7 +192,7 @@
                                 </li>
                                 <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> Auth Pages </a><span class="submenu-arrow"></span>
                                     <ul class="submenu">
-                                        <li><a href="auth-login.html" class="sub-menu-item">Login</a></li>
+                                        <li><a href="/login" class="sub-menu-item">Login</a></li>
                                         <li><a href="auth-signup.html" class="sub-menu-item">Signup</a></li>
                                         <li><a href="auth-re-password.html" class="sub-menu-item">Reset Password</a></li>
                                     </ul>  

@@ -18,12 +18,13 @@ class User
             string $position,
             string $gender,
             string $email,
-            string $password
+            string $password,
+            string $phone
         )
         {
             
-            $query = "INSERT INTO users (username, position, gender, email, password, created_at)
-                      VALUES (:username, :position, :gender, :email, :password, NOW())";
+            $query = "INSERT INTO users (username, position, gender, email, password, phone, created_at)
+                      VALUES (:username, :position, :gender, :email, :password,  :phone, NOW())";
         
             $stmt = $this->pdo->prepare($query);
             $stmt->bindParam(':username', $username);
@@ -31,7 +32,7 @@ class User
             $stmt->bindParam(':gender', $gender);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
-        
+            $stmt->bindParam(':phone', $phone);
             $stmt->execute();
             
             return true;
@@ -48,7 +49,19 @@ class User
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function getByUsername( string $username, string $password)
+    {
+        
+        $query = "SELECT * FROM users WHERE username = :username AND password = :password";
+        $stmt = DB::connect()->prepare($query);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
+        $stmt->execute();
 
+
+        return $stmt->fetch();
+
+    }
     public function updateUser(
         int $id,
         string $username,

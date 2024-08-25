@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 loadPartial('header');
-loadPartial('navbar');
+
+
 
 /**
  * @var $branches
@@ -282,4 +283,6 @@ loadPartial('navbar');
         <!-- Footer End -->
     </main>
     <!-- End Page Content -->
+    
 </div>
+<?php loadPartial('footer'); ?>

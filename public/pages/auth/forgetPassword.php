@@ -88,6 +88,4 @@ loadPartial('header');
 <!-- JAVASCRIPTS -->
 </body>
 
-<?php
-loadPartial('footer');
-?>
+<
