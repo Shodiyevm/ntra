@@ -53,7 +53,7 @@ class User
     {
         
         $query = "SELECT * FROM users WHERE username = :username AND password = :password";
-        $stmt = DB::connect()->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $password);
         $stmt->execute();
@@ -106,4 +106,18 @@ class User
             return false;
         }
     }
+    public function logout( )
+    {
+
+        session_start();
+
+        $userId = $_SESSION['user_id'];
+        $this->deleteUser($userId);
+
+        session_destroy();
+
+        header("Location: /");
+        exit();
+    }
 }
+

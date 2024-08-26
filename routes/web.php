@@ -38,8 +38,11 @@ Router::get('/signup', fn()=> loadView('/auth/signup'));
 Router::post('/login', fn()=> loadController('login'));
 Router::post('/signup', fn()=> loadController('signup'));
 
+
+Router::post('/logout', fn()=> loadController('logout'));
+Router::get('/dashboard/home', fn()=> loadView('/dashboard/home'));
+
+
 Router::get('/forget/password', fn()=> loadController('forgetPassword'));
-
-
 Router::erroRessponse(404, 'notFound');
 
