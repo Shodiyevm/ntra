@@ -1,7 +1,7 @@
 <?php
 
-loadPartial('header');
-loadPartial('navbar');
+loadPartials('header');
+loadPartials('navbar');
 
 ?>
 <section class="relative lg:py-24 py-16">
@@ -31,4 +31,4 @@ loadPartial('navbar');
 </section><!--end section-->
 <!-- End -->
 
-<?php loadPartial('footer'); ?>
+<?php loadPartials('footer'); ?>

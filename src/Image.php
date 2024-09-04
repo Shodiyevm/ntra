@@ -25,6 +25,30 @@ class Image
         $statement->bindParam(':name', $name);
         return $statement->execute();
     }
+    public function getImage(int $id)
+    {
+        $query = "SELECT * FROM ads_image WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+    }
+    public function updateImage( $id, string $name): bool
+    {
+        $query = "UPDATE ads_image SET name = :name WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindParam(':id', $id);
+        $statement->bindParam(':name', $name);
+        return $statement->execute();
+    }
+
+    public function deleteImage(int $id): bool
+    {
+        $query = "DELETE FROM ads_image WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+        $statement->bindParam(':id', $id);
+        return $statement->execute();
+    }
 
     public function handleUpload(): string
     {
@@ -33,7 +57,6 @@ class Image
             exit('Error: '.$_FILES['image']['error']);
         }
 
-
         $name       = $_FILES['image']['name'];
         $path       = $_FILES['image']['tmp_name'];
         $uploadPath = basePath("/public/assets/images/ads");
@@ -41,18 +64,16 @@ class Image
         if (!is_dir($uploadPath)) {
             mkdir($uploadPath);
         }
-
+     
         
         $fileName     = uniqid().'___'.$name;
         $fullFilePath = "$uploadPath/$fileName";
 
     
         $fileUploaded = move_uploaded_file($path, $fullFilePath);
-
         if (!$fileUploaded) {
             exit('Fayl yuklanmadi');
         }
-
         return $fileName;
     }
 }

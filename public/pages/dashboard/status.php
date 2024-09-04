@@ -1,7 +1,7 @@
 <?php
 
-loadPartial('header');
-loadPartial('navbar');
+loadPartials('header');
+loadPartials('navbar');
 /**
  * @var $statuses
  */

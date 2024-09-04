@@ -106,18 +106,6 @@ class User
             return false;
         }
     }
-    public function logout( )
-    {
-
-        session_start();
-
-        $userId = $_SESSION['user_id'];
-        $this->deleteUser($userId);
-
-        session_destroy();
-
-        header("Location: /");
-        exit();
-    }
+   
 }
 

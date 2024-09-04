@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-loadPartial('header');
+loadPartials('header');
 ?>
 
 <body class="dark:bg-slate-900">
@@ -32,8 +32,8 @@ loadPartial('header');
                 <form class="text-start" action="/login" method="post">
                     <div class="grid grid-cols-1">
                         <div class="mb-4">
-                            <label class="font-medium" for="LoginEmail">Email Address:</label>
-                            <input id="LoginEmail" type="email" class="form-input mt-3" placeholder="name@example.com" name="email">
+                            <label class="font-medium" for="Username">Username:</label>
+                            <input id="Loginusername" type="text" class="form-input mt-3" placeholder="Username:" name="username">
                         </div>
 
                         <div class="mb-4">

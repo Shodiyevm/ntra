@@ -1,8 +1,8 @@
 
 <?php
 
-loadPartial("header");
-loadPartial("navbar");
+loadPartials("header");
+loadPartials("navbar");
 
 ?>
 
@@ -70,4 +70,4 @@ loadPartial("navbar");
 
 
 <?php
-loadPartial("footer");
+loadPartials("footer");

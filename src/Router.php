@@ -58,6 +58,30 @@ class Router
             }
         }
     }
+    public static function patch(string $path, callable $callback): void
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if(isset($_POST['_method']) && strtolower($_POST['_method']) === 'patch') {
+                $router = new self();
+                $resourceId = $router->getResourceId();
+    
+                if ($resourceId !== null) {
+                    $path = str_replace("{id}", (string)$resourceId, $path);
+                    if ($path === $router->uri) {
+                        $callback($resourceId);
+                        exit();
+                    }
+                }
+    
+                if ($path === $router->uri) {
+                    $callback();
+                    exit();
+                }
+            }
+        } 
+    }
+
+
     
     public static function erroRessponse(int $code, string $message='error'): void
     {
@@ -67,5 +91,10 @@ class Router
         }
         echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
         exit();
+    }
+    public function logout(): void
+    {
+        session_destroy();
+        redirect('/login');
     }
 }

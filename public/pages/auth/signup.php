@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-loadPartial('header');
+loadPartials('header');
 ?>
 
 <body class="dark:bg-slate-900">
