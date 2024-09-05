@@ -81,8 +81,25 @@ class Router
         } 
     }
 
+    public static function delete(string $path, $callback): void
+    {
+        if(strtolower($_REQUEST['_method']) !== 'delete') {
+            return;
+        }
 
-    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ((new self())->getResourceId()) {
+                $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
+                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    $callback((new self())->getResourceId());
+                    exit();
+                }
+            }
+            $callback();
+            exit();
+        }
+    }
+
     public static function erroRessponse(int $code, string $message='error'): void
     {
         http_response_code($code);

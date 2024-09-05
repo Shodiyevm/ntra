@@ -126,7 +126,9 @@ class Ads
     }
 
     public function deleteAds(int $id): bool
+
     {
+        unlink("/assets/images/ads/" . $this->getAd($id)->image);
         $query = "DELETE FROM ads WHERE id = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

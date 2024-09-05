@@ -235,11 +235,11 @@ if (in_array('create', $uri)) {
                 <div class="layout-specing">
                     <!-- Start Content -->
                     <div class="md:flex justify-between items-center">
-                        <h5 class="text-lg font-semibold">Add Property</h5>
+                        <h5 class="text-lg font-semibold">Elon Qo'shish</h5>
 
                         <ul class="tracking-[0.5px] inline-block sm:mt-0 mt-3">
                             <li class="inline-block capitalize text-[16px] font-medium duration-500 dark:text-white/70 hover:text-green-600 dark:hover:text-white">
-                                <a href="index.html">Hously</a></li>
+                                <a href="index.html">UY</a></li>
                             <li class="inline-block text-base text-slate-950 dark:text-white/70 mx-0.5 ltr:rotate-0 rtl:rotate-180">
                                 <i class="mdi mdi-chevron-right"></i></li>
                             <li class="inline-block capitalize text-[16px] font-medium text-green-600 dark:text-white"
@@ -272,7 +272,17 @@ if (in_array('create', $uri)) {
                                             <label for="title" class="font-medium">Sarlavha</label>
                                             <input name="title" id="title" type="text" class="form-input mt-2"
                                                    placeholder="Sarlavha" value="<?= $ad?->title ?>">
-                                        </div>
+                                                   <div class="md:col-span-4 col-span-12">
+                                        <label for="branch_id" class="font-medium">Branch</label>
+                                        <select name="branch_id" id="branch_id" class="form-input mt-2">
+                                            <?php foreach ($branches as $branch): ?>
+                                                <option value="<?php echo $branch->id; ?>">
+                                                    <?php echo $branch->name; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+
 
                                         <div class="md:col-span-4 col-span-12">
                                             <label for="description" class="font-medium">Ta'rif</label>

@@ -1,7 +1,6 @@
 <?php
 
 loadPartials( path:"header", loadFromPublic: false );
-// dd($ads);
 ?>
 
 <div class="page-wrapper">
@@ -273,19 +272,21 @@ loadPartials( path:"header", loadFromPublic: false );
                                      * @var  $ads
                                      */
                                     foreach ($ads as $ad): ?>
-
+                                       
                                         <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
                                             <div class="relative">
                                                 <img src="assets/images/ads/<?php echo $ad->image; ?>" alt="">
-
+                                                
                                                 <div class="absolute top-4 end-4">
+                                                 
                                                 <a href="ads/update/<?php echo $ad->id; ?>" class="icon-link">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                                         </svg>
                                                     </a>
-
+                                                   
                                                 </div>
+                                                
                                             </div>
                                                 
                                             <div class="p-6">
@@ -314,8 +315,18 @@ loadPartials( path:"header", loadFromPublic: false );
                                                     <li>
                                                         <span class="text-slate-400">Price</span>
                                                         <p class="text-lg font-medium">$ <?= $ad->price?></p>
-                                                    </li>
+                                                        </li>
+                                                <form action="ads/delete/<?php echo $ad->id; ?>" method="POST" style="display: inline;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                   <button type="submit" class="btn btn-danger" style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" style="width: 20px; height: 20px; margin-right: 5px;">
+                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18.75A2.25 2.25 0 0 1 3.75 21H20.25A2.25 2.25 0 0 1 23 18.75V5.25A2.25 2.25 0 0 1 20.25 3H3.75A2.25 2.25 0 0 1 1.5 5.25v13.5A2.25 2.25 0 0 1 3.75 21ZM6.75 7.5H18M9 7.5V6.75a2.25 2.25 0 0 1 4.5 0V7.5M10.5 12V15M13.5 12V15" />
+                                                         </svg>
+                                                           O'chirish
+                                                    </button>
+                                                 </form>
 
+                                                
                                                 </ul>
                                             </div>
                                         </div><!--end property content-->
