@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+use App\middlewares\Authentication;
+
 class Router
 {
     protected object|null $update;
@@ -27,26 +29,26 @@ class Router
         return is_numeric($resourceId) ? (int)$resourceId : null;
     }
 
-    public static function get(string $path, callable $callback): void
+    public static function get($path, $callback, string|null $middleware = null): void
     {
-        if ($_SERVER["REQUEST_METHOD"] === "GET") {
-            $router = new self();
-            $resourceId = $router->getResourceId();
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if ((new self())->getResourceId()) {
 
-            if ($resourceId !== null) {
-                $path = str_replace("{id}", (string)$resourceId, $path);
-                if ($path === $router->uri) {
-                    $callback($resourceId);
+                $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
+
+                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    $callback((new self())->getResourceId());
                     exit();
                 }
             }
-
-            if ($path === $router->uri) {
+            if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                (new Authentication())->handle($middleware);
                 $callback();
                 exit();
             }
         }
     }
+
 
     public static function post(string $path, callable $callback): void
     {

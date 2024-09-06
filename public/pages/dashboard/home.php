@@ -27,15 +27,15 @@ loadPartials(path: 'header', loadFromPublic: false);
 
             <ul class="sidebar-menu border-t border-white/10" data-simplebar style="height: calc(100% - 70px);">
                 <li>
-                    <a href="index.html"><i class="mdi mdi-chart-bell-curve-cumulative me-2"></i>Dashboard</a>
+                    <a href="/admin"><i class="mdi mdi-chart-bell-curve-cumulative me-2"></i>Admin</a>
                 </li>
 
                 <li>
-                    <a href="/"><i class="mdi mdi-home-city me-2"></i>Explore Property</a>
+                    <a href="/adminpro"><i class="mdi mdi-home-city me-2"></i>Elonlar</a>
                 </li>
 
                 <li>
-                    <a href="favorite-property.html"><i class="mdi mdi-home-heart me-2"></i>Favorite Properties</a>
+                    <a href="/branch"><i class="mdi mdi-home-heart me-2"></i>Filial</a>
                 </li>
 
                 <li>

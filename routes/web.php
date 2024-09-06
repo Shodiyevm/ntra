@@ -12,7 +12,7 @@ Router::get('/ads/{id}', fn(int $id) => (new AdController())->show($id));
 Router::get('/adminpro' , fn() => (new AdController())->index());
 
 
-Router::get('/ads/create', fn() => (new AdController())->createAdForm());
+Router::get('/ads/create', fn() => (new AdController())->createAdForm(),'auth');
 Router::post('/ads/create', fn() => (new AdController())->create());
 
 Router::get('/status/create', fn() => loadView('dashboard/create-status'));

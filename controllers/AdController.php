@@ -38,7 +38,7 @@ class AdController
                 $description,
                 $user_id,
                 2,
-                $branch_id,
+                4,
                 $address,
                 $price,
                 $rooms
