@@ -43,30 +43,30 @@ class Ads
     }
 
     
-        public function getAd(int $id)
-        {    
-            $query = "SELECT 
-                        ads.id AS id,
-                        ads.title AS title,
-                        ads.description AS description,
-                        ads.price AS price,
-                        ads.rooms AS rooms,
-                        ads.address AS address,
-                        ads.created_at AS created_at,
-                        branch.name AS branch,
-                        users.username AS user,
-                        users.position AS position,
-                        users.gender AS gender,
-                        users.phone AS phone,
-                        status.name AS status_name,
-                        ads_image.name AS image
-                      FROM ads
-                      JOIN branch ON branch.id = ads.branch_id
-                      JOIN users ON users.id = ads.user_id
-                      JOIN status ON status.id = ads.status_id
-                      LEFT JOIN ads_image ON ads_image.ads_id = ads.id
-                      WHERE ads.id = :id";  
-            
+    public function getAd(int $id)
+    {    
+        $query = "SELECT 
+                    ads.id AS id,
+                    ads.title AS title,
+                    ads.description AS description,
+                    ads.price AS price,
+                    ads.rooms AS rooms,
+                    ads.address AS address,
+                    ads.created_at AS created_at,
+                    branch.name AS branch,
+                    users.username AS user,
+                    users.position AS position,
+                    users.gender AS gender,
+                    users.phone AS phone,
+                    status.name AS status_name,
+                    ads_image.name AS image
+                    FROM ads
+                    JOIN branch ON branch.id = ads.branch_id
+                    JOIN users ON users.id = ads.user_id
+                    JOIN status ON status.id = ads.status_id
+                    LEFT JOIN ads_image ON ads_image.ads_id = ads.id
+                    WHERE ads.id = :id";  
+        
             
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -124,7 +124,36 @@ class Ads
         $stmt->bindParam(':rooms', $rooms);
         return $stmt->execute();
     }
-
+    public function search(string $searchPhrase , string|null $branch=null): array|false
+    {
+        $searchPhrase = "%$searchPhrase%";
+        $query = "SELECT ads.*, ads_image.name AS image
+                  FROM ads
+                  LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                  WHERE (ads.title LIKE :searchPhrase
+                  OR ads.description LIKE :searchPhrase)";
+        
+        if ($branch) {
+            $query .= " AND ads.branch_id = :branch_id";
+        }
+        
+        $stmt = $this->pdo->prepare($query);  
+    
+   
+        $stmt->bindParam(':searchPhrase', $searchPhrase);
+        
+   
+        if ($branch!== null) {
+            $stmt->bindParam(':branch_id', $branch ,);
+        }
+    
+   
+        $stmt->execute();
+    
+    
+        return $stmt->fetchAll();
+    }
+    
     public function deleteAds(int $id): bool
 
     {
@@ -135,3 +164,4 @@ class Ads
         return $stmt->execute();
     }
 }
+    

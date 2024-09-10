@@ -38,7 +38,7 @@ class AdController
                 $description,
                 $user_id,
                 2,
-                4,
+                7,
                 $address,
                 $price,
                 $rooms
@@ -104,6 +104,17 @@ class AdController
     loadView('dashboard/create-ad');
 }
 
+public function home()
+{
+   
+    $searchPhrase = $_GET['search_phrase'] ?? '';
+    $ads = (new \App\Ads())->getAds();
+    $branches = (new \App\Branch())->getBranches();
+
+    loadView('home', ['ads' => $ads, 'branches' => $branches, ]);
+}
+
+  
 
     public function delete(int $id): void
     {
@@ -111,4 +122,14 @@ class AdController
         (new \App\Ads())->deleteAds($id);
         redirect('/profile');
     }
+   
+    public function search()
+{
+    $branch = $_GET['branch'] ?? null;
+    $searchPhrase = $_GET['search_phrase'] ?? '';
+
+    $ads = (new \App\Ads())->search($searchPhrase, $branch);  
+    loadView('home', ['ads' => $ads, 'branches' => (new \App\Branch())->getBranches(), 'branchId' => $branch]);
+}
+
 }

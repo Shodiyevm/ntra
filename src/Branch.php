@@ -25,7 +25,7 @@ class Branch
     public function getBranches(): false|array
     {
         $query = "SELECT * FROM branch";
-        return $this->pdo->query($query)->fetchAll(PDO::FETCH_OBJ);
+        return $this->pdo->query($query)->fetchAll();
     }
 
     public function update(int $id, string $name, string $address): void

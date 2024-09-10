@@ -23,7 +23,7 @@ class Auth
         // Get users role
         $query = "SELECT users.*, user_role.role_id
                   FROM users
-                      JOIN user_role ON users.id = user_role.user_id
+                    LEFT  JOIN user_role ON users.id = user_role.user_id
                   WHERE id = $user->id";
 
 
@@ -40,7 +40,10 @@ class Auth
             $_SESSION['user'] = [
                 'username' => $userWithRoles->username,
                 'id'       => $userWithRoles->id,
-                'role'     => $userWithRoles->role_id
+                'role'     => $userWithRoles->role_id,
+                'email'    => $userWithRoles->email,
+                'position' => $userWithRoles->position,
+                'phone'    => $userWithRoles->phone
             ];
 
             unset($_SESSION['message']['error']);

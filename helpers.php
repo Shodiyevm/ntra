@@ -23,14 +23,10 @@ function basePath(string $path): string
     return __DIR__.$path;
 }
 
-function loadView(string $path, array|null $args = null, bool $loadFromPublic = true): void
+function loadView(string $path, array|null $args = null ): void
 {
-    if ($loadFromPublic) {
-        $file = "/public/pages/$path.php";
-    } else {
-        $file = "/resources/views/pages/$path.php";
-    }
-
+    $file = "/resources/views/pages/$path.php";
+   
     $filePath = basePath($file);
 
     if (!file_exists($filePath)) {

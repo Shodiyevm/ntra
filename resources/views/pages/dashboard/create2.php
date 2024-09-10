@@ -4,9 +4,11 @@ declare(strict_types=1);
 loadPartials('header');
 loadPartials('navbar');
 /**
- * @var $ad
+ * @var $ads
  */
-
+/**
+ * @var $branches
+ */
 
 $uri = explode('/', $_SERVER['REQUEST_URI']);
 if (in_array('create', $uri)) {
@@ -15,6 +17,8 @@ if (in_array('create', $uri)) {
 } else {
     $action = "/ads/update/$ad->id";
 }
+
+
 ?>
     <div class="page-wrapper toggled">
         <!-- Start Page Content -->
@@ -277,7 +281,7 @@ if (in_array('create', $uri)) {
                                         <select name="branch_id" id="branch_id" class="form-input mt-2">
                                             <?php foreach ($branches as $branch): ?>
                                                 <option value="<?php echo $branch->id; ?>">
-                                                    <?php echo $branch->name; ?>
+                                                 <?php echo $branch->name; ?>
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
