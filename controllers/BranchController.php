@@ -35,7 +35,14 @@ class BranchController
             }
         } else {
             
-            loadView('dashboard/branchcreate');
+            loadView('dashboard/createBranch');
         }
     }
+    public function getuserBranch(): void  
+    {
+        $branchModel = new Branch();
+        $branches = $branchModel->getBranches();
+        loadView('dashboard/userbranch', ['branches' => $branches]);
+    }
+    
 }

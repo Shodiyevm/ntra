@@ -64,9 +64,13 @@ class AdController
         echo "Iltimos, barcha maydonlarni to'ldiring!";
     }
 
+
     public function edit(int $id): void
 {
-    loadView('dashboard/create-ad', ['ad' => (new \App\Ads())->getAd($id)]);
+   
+    
+ 
+    loadView('dashboard/create-ad', ['ad' => $ad = (new \App\Ads())->getAd($id)]);
 }
 
     public function update(int $id): void
@@ -101,7 +105,8 @@ class AdController
     }
     public function createAdForm(): void
 {
-    loadView('dashboard/create-ad');
+    $branches=(new \App\Branch())->getBranches();
+    loadView('dashboard/create-ad' , ['branches' => $branches]);
 }
 
 public function home()
@@ -123,13 +128,25 @@ public function home()
         redirect('/profile');
     }
    
-    public function search()
-{
-    $branch = $_GET['branch'] ?? null;
-    $searchPhrase = $_GET['search_phrase'] ?? '';
+    public function search(): void
+    {
 
-    $ads = (new \App\Ads())->search($searchPhrase, $branch);  
-    loadView('home', ['ads' => $ads, 'branches' => (new \App\Branch())->getBranches(), 'branchId' => $branch]);
+        $searchPhrase = $_REQUEST['search_phrase'];
+        $searchBranch = $_GET['search_branch'] ? (int) $_GET['search_branch'] : null;
+        $searchMinPrice = $_GET['min_price'] ? (int) $_GET['min_price'] : 0;
+        $searchMaxPrice = ($_GET['max_price']) ? (int) $_GET['max_price'] : PHP_INT_MAX;
+
+
+
+        $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
+        $branches = (new \App\Branch())->getBranches();
+        loadView('home', ['ads' => $ads, 'branches' => $branches]);
+    }
+
+    public function showcontact(): void
+    {
+        loadView('dashboard/contact');
+    }
 }
 
-}
+

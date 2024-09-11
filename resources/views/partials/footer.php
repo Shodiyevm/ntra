@@ -46,7 +46,7 @@
 <script src="/dashboard/assets/libs/shufflejs/shuffle.min.js"></script>
 <script src="/dashboard/assets/libs/feather-icons/feather.min.js"></script>
 <script src="/dashboard/assets/libs/simplebar/simplebar.min.js"></script>
-<script src="/dashboard/assets/js/plugins.init.js"></script>
+<script src="dashboard/assets/js/plugins.init.js"></script>
 <script src="/dashboard/assets/js/app.js"></script>
 <!-- JAVASCRIPTS -->
 </body>

@@ -124,37 +124,36 @@ class Ads
         $stmt->bindParam(':rooms', $rooms);
         return $stmt->execute();
     }
-    public function search(string $searchPhrase , string|null $branch=null): array|false
-    {
-        $searchPhrase = "%$searchPhrase%";
-        $query = "SELECT ads.*, ads_image.name AS image
-                  FROM ads
-                  LEFT JOIN ads_image ON ads.id = ads_image.ads_id
-                  WHERE (ads.title LIKE :searchPhrase
-                  OR ads.description LIKE :searchPhrase)";
-        
-        if ($branch) {
-            $query .= " AND ads.branch_id = :branch_id";
-        }
-        
-        $stmt = $this->pdo->prepare($query);  
+    public function superSearch(string $searchPhrase, string|null $branch = null, 
+    int|null $minPrice = 0, int|null $maxPrice = PHP_INT_MAX): array|false
+{
+    $searchPhrase = "%$searchPhrase%";
     
    
-        $stmt->bindParam(':searchPhrase', $searchPhrase);
-        
-   
-        if ($branch!== null) {
-            $stmt->bindParam(':branch_id', $branch ,);
-        }
-    
-   
-        $stmt->execute();
-    
-    
-        return $stmt->fetchAll();
-    }
-    
-    public function deleteAds(int $id): bool
+    $query =  "SELECT *, ads.id AS id,
+               ads.address AS address,
+                ads_image.name AS image
+               FROM ads
+               JOIN branch ON branch.id = ads.branch_id
+               LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+               WHERE (ads.title LIKE :searchPhrase OR ads.description LIKE :searchPhrase)
+               AND ads.price BETWEEN :minPrice AND :maxPrice";
+                 $params=[
+                     ':searchPhrase' => "%$searchPhrase%",
+                     ':minPrice' => $minPrice,
+                     ':maxPrice' => $maxPrice
+                 ];
+                 if($branch){
+                     $query.=" AND branch.name = :branch";
+                     $params[':branch'] = $branch;
+                 }
+    $stmt = $this->pdo->prepare($query);
+    $stmt->execute($params);
+    return $stmt->fetchAll();
+}
+ 
+
+       public function deleteAds(int $id): bool
 
     {
         unlink("/assets/images/ads/" . $this->getAd($id)->image);
