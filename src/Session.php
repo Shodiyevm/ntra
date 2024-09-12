@@ -50,6 +50,14 @@ class Session
 
         return '';
     }
+    public function getGender()
+    {
+        if (isset($this->getUser()['gender'])) {
+            return $this->getUser()['gender'];
+        }
+
+        return '';
+    }
 
     public function getId()
     {

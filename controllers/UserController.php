@@ -13,7 +13,7 @@ class UserController
     {
         $ads = (new Ads())->getUsersAds((new Session())->getId());
 
-        // dd($ads);
+     
         loadView('profile', ['ads' => $ads], false);
     }
     public function  showUsers(): void

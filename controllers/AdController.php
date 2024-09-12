@@ -106,7 +106,8 @@ class AdController
     public function createAdForm(): void
 {
     $branches=(new \App\Branch())->getBranches();
-    loadView('dashboard/create-ad' , ['branches' => $branches]);
+    $users=(new \App\User())->getUsers();
+    loadView('dashboard/create-ad' , ['branches' => $branches] , ['users' => $users]);
 }
 
 public function home()
@@ -115,8 +116,9 @@ public function home()
     $searchPhrase = $_GET['search_phrase'] ?? '';
     $ads = (new \App\Ads())->getAds();
     $branches = (new \App\Branch())->getBranches();
+    // $users=(new \App\User())->getUsers();
 
-    loadView('home', ['ads' => $ads, 'branches' => $branches, ]);
+    loadView('home', ['ads' => $ads, 'branches' => $branches]);
 }
 
   
@@ -132,15 +134,18 @@ public function home()
     {
 
         $searchPhrase = $_REQUEST['search_phrase'];
+
         $searchBranch = $_GET['search_branch'] ? (int) $_GET['search_branch'] : null;
+        $gender=$_GET['gender'] ? $_GET['gender'] : null;
         $searchMinPrice = $_GET['min_price'] ? (int) $_GET['min_price'] : 0;
         $searchMaxPrice = ($_GET['max_price']) ? (int) $_GET['max_price'] : PHP_INT_MAX;
 
 
 
-        $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
+        $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $gender, $searchMinPrice, $searchMaxPrice) ;
         $branches = (new \App\Branch())->getBranches();
-        loadView('home', ['ads' => $ads, 'branches' => $branches]);
+        $genders = (new \App\User())->getUsers();
+        loadView('home', ['ads' => $ads, 'branches' => $branches , 'genders' => $genders]);
     }
 
     public function showcontact(): void

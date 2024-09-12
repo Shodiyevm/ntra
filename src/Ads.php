@@ -78,13 +78,14 @@ class Ads
         
     public function getAds(): array|false
     {
-        $query = "SELECT ads.*, ads_image.name AS image, branch.name AS branch_name, status.name AS status_name
+        $query = "SELECT ads.*, users.username AS user, users.gender as gender, ads_image.name AS image, branch.name AS branch_name, status.name AS status_name
                   FROM ads
+                  LEFT JOIN users ON users.id = ads.user_id
                   LEFT JOIN branch ON branch.id = ads.branch_id
                   LEFT JOIN status ON status.id = ads.status_id
                   LEFT JOIN ads_image ON ads.id = ads_image.ads_id";
 
-        return $this->pdo->query($query)->fetchAll(PDO::FETCH_OBJ);
+        return $this->pdo->query($query)->fetchAll();
     }
 
     public function getUsersAds( $userId): array|false
@@ -97,7 +98,7 @@ class Ads
                   WHERE ads.user_id = :user_id";
 
         $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':user_id', $userId, );
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -124,8 +125,8 @@ class Ads
         $stmt->bindParam(':rooms', $rooms);
         return $stmt->execute();
     }
-    public function superSearch(string $searchPhrase, string|null $branch = null, 
-    int|null $minPrice = 0, int|null $maxPrice = PHP_INT_MAX): array|false
+    public function superSearch(string $searchPhrase=null, string|null $branch = null, 
+    string |null $gender=null, int|null  $minPrice = 0, int|null $maxPrice = PHP_INT_MAX): array|false
 {
     $searchPhrase = "%$searchPhrase%";
     
@@ -134,14 +135,19 @@ class Ads
                ads.address AS address,
                 ads_image.name AS image
                FROM ads
+               JOIN users ON users.id = ads.user_id
                JOIN branch ON branch.id = ads.branch_id
                LEFT JOIN ads_image ON ads.id = ads_image.ads_id
                WHERE (ads.title LIKE :searchPhrase OR ads.description LIKE :searchPhrase)
+               AND users.gender = :gender
                AND ads.price BETWEEN :minPrice AND :maxPrice";
+                
                  $params=[
                      ':searchPhrase' => "%$searchPhrase%",
+                     ':gender' => $gender,
                      ':minPrice' => $minPrice,
                      ':maxPrice' => $maxPrice
+                     
                  ];
                  if($branch){
                      $query.=" AND branch.name = :branch";

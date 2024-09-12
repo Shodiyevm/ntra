@@ -9,6 +9,9 @@ loadPartials('navbar');
 /**
  * @var $branches
  */
+/**
+ * @var $users
+ */
 
 
 $uri = explode('/', $_SERVER['REQUEST_URI']);
@@ -294,7 +297,7 @@ if (in_array('create', $uri)) {
                                                 </textarea>
                                             </div>
                                         </div>
-
+                                          
                                         <div class="md:col-span-4 col-span-12 hidden">
                                             <div class="form-icon relative mt-2">
                                                 <input name="user" value="5" type="number" class="form-input ps-11">
@@ -306,12 +309,14 @@ if (in_array('create', $uri)) {
                                             </div>
                                         </div>
 
-                                        <div class="md:col-span-4 col-span-12 hidden">
-                                            <div class="form-icon relative mt-2">
-                                                <input name="branch" value="1" type="number" class="form-input ps-11">
-                                            </div>
-                                        </div>
-
+                                        <div class="md:col-span-4 col-span-12">
+                                        <label for="branch_id" class="font-medium">gender</label>
+                                        <select name="branch_id" id="branch_id" class="form-input mt-2">
+                                            <option value="1">Male</option>
+                                            <option value="2">Female</option>
+                                            
+                                        </select>
+                                    </div>
                                         <div class="md:col-span-4 col-span-12">
                                             <label for="address" class="font-medium">Manzil</label>
                                             <input name="address" id="address" type="text" class="form-input mt-2"

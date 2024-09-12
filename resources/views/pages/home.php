@@ -34,35 +34,22 @@ loadPartials('navbar');
                         <div class="grid grid-cols-1">
                             <ul class="inline-block sm:w-fit w-full flex-wrap justify-center text-center p-4 bg-white dark:bg-slate-900 rounded-t-xl border-b dark:border-gray-800" id="myTab" data-tabs-toggle="#StarterContent" role="tablist">
                                 <li role="presentation" class="inline-block">
-
+                                       
                                 </li>
                               
-                                <div>
-                                                    <label class="form-label font-medium text-slate-900 dark:text-white">Search : <span class="text-red-600">*</span></label>
-                                                    <div class="filter-search-form relative filter-border mt-2">
-                                                        <i class="uil uil-search icons"></i>
-                                                        <input name="search_phrase" type="text" id="job-keyword" class="form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0" placeholder="Search your keaywords">
-                                                    </div>
-                                                </div>
-                                                
                             <div id="StarterContent" class="p-6 bg-white dark:bg-slate-900 rounded-ss-none rounded-se-none md:rounded-se-xl rounded-xl shadow-md dark:shadow-gray-700">
                                 <div class="" id="buy-home" role="tabpanel" aria-labelledby="buy-home-tab">
                                     <form action="/search" method="get">
                                         <div class="registration-form text-dark text-start">
                                             <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-0 gap-6">
-     
-                                                <div>
-                                                    <label class="form-label font-medium text-slate-900 dark:text-white">genger <span class="text-red-600">*</span></label>
+
+                                            <div>
+                                                    <label class="form-label font-medium text-slate-900 dark:text-white">Search : <span class="text-red-600">*</span></label>
                                                     <div class="filter-search-form relative filter-border mt-2">
-                                                        <i class="uil uil-users-alt icons"></i>
-                                                        <select class="form-select z-2" name="gender" id="gender-select" aria-label="Default select example ">
-                                                            <option value="">Select Gender</option>
-                                                            <option value="male">Male</option>
-                                                            <option value="female">Female</option>
-                                                            <option value="other">Other</option>
-                                                        </select>
+                                                        <i class="uil uil-search icons"></i>
+                                                        <input name="search_phrase" type="text" id="job-keyword" class="form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0" placeholder="Search your keaywords">
                                                     </div>
-                                                </div>
+                                                </div> 
                                                 
 
                                                 <div>
@@ -78,7 +65,9 @@ loadPartials('navbar');
                                                         </select>
                                                     </div>
                                                 </div>
-                                            
+                                       
+                                               
+                                                </div>
                                                 <div>
                                                     <label for="buy-min-price" class="form-label font-medium text-slate-900 dark:text-white">Min Price :</label>
                                                     <div class="filter-search-form relative filter-border mt-2">
@@ -120,12 +109,17 @@ loadPartials('navbar');
             /**
              * @var  $ads
              */
-
-
+             
+              /**
+             * @var  $users
+             * 
+             */
+            
+           
             foreach ($ads as $ad):
-                
+                 
             ?>
-
+    
                 <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
                     <div class="relative">
                         <img src="assets/images/ads/<?= $ad->image ?>" alt="">
@@ -142,19 +136,12 @@ loadPartials('navbar');
 
                         <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                             <li class="flex items-center me-4">
-                                <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                <span>8000sqf</span>
+                                <i class="uil uil-users-alt icons text-2xl me-2 text-green-600"></i>
+                                <span><?= $ad->gender ?> </span>
                             </li>
 
-                            <li class="flex items-center me-4">
-                                <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                <span>4 Beds</span>
-                            </li>
+                       
 
-                            <li class="flex items-center">
-                                <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                <span>4 Baths</span>
-                            </li>
                         </ul>
 
                         <ul class="pt-6 flex justify-between items-center list-none">
